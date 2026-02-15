@@ -15,10 +15,7 @@ import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
  * Uses public anonymous key (safe to expose)
  */
 export const createClient = () =>
-  createPagesBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  createPagesBrowserClient();
 
 /**
  * Database type definitions for generated games
