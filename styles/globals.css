@@ -1,0 +1,417 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== HACKER/TERMINAL THEME ===== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base body - solid dark background */
+body {
+  @apply bg-terminal-bg text-neon-white font-mono tracking-wide;
+  background-attachment: fixed;
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Terminal-style scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-left: 1px solid #00ff00;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00ff00, #00ffff);
+  border: 1px solid #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00ffff, #ff00ff);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+}
+
+/* ===== BUTTON STYLES - TERMINAL/HACKER ===== */
+.btn {
+  @apply px-6 py-3 font-mono font-semibold transition-all duration-200 uppercase text-sm tracking-widest;
+  border: 2px solid;
+  position: relative;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Primary - Neon Green */
+.btn-primary {
+  @apply bg-terminal-bg border-primary hover:shadow-glow-green text-neon-green;
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.7), inset 0 0 10px rgba(0, 255, 0, 0.1);
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+/* Secondary - Cyan */
+.btn-secondary {
+  @apply bg-terminal-bg border-secondary hover:shadow-glow-cyan text-neon-cyan;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.7), inset 0 0 10px rgba(0, 255, 255, 0.1);
+  background-color: rgba(0, 255, 255, 0.05);
+}
+
+/* Accent - Magenta */
+.btn-accent {
+  @apply bg-terminal-bg border-accent hover:shadow-glow-magenta text-neon-magenta;
+  box-shadow: 0 0 5px rgba(255, 0, 255, 0.3);
+}
+
+.btn-accent:hover {
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.7), inset 0 0 10px rgba(255, 0, 255, 0.1);
+  background-color: rgba(255, 0, 255, 0.05);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== INPUT STYLES - TERMINAL PROMPT ===== */
+.input {
+  @apply w-full px-4 py-3 font-mono bg-terminal-dark text-neon-green;
+  border: 2px solid #333333;
+  transition: all 0.2s ease;
+  color: #00ff00;
+}
+
+.input::placeholder {
+  color: #00ff00;
+  opacity: 0.5;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #00ff00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4), inset 0 0 5px rgba(0, 255, 0, 0.1);
+  background-color: rgba(0, 255, 0, 0.02);
+}
+
+.input:hover:not(:focus) {
+  border-color: #00ff00;
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.2);
+}
+
+/* ===== TEXTAREA STYLES ===== */
+textarea.input {
+  resize: vertical;
+  min-height: 120px;
+  font-family: 'Fira Code', monospace;
+}
+
+/* ===== CARD STYLES ===== */
+.card {
+  @apply bg-terminal-dark border-2 border-terminal-border overflow-hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  border-color: #00ff00;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+/* ===== CODE DISPLAY - TERMINAL BOX ===== */
+.code-box {
+  @apply bg-terminal-bg border-2 border-primary p-4 font-mono text-neon-green;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* ===== TERMINAL TABLE ===== */
+table {
+  @apply w-full border-collapse;
+}
+
+table thead {
+  @apply bg-terminal-border border-2 border-primary;
+  color: #00ff00;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+table td,
+table th {
+  @apply px-4 py-3 text-left font-mono;
+  border: 1px solid #333333;
+}
+
+table tbody tr {
+  transition: all 0.2s ease;
+  background-color: #0d0d0d;
+}
+
+table tbody tr:hover {
+  background-color: rgba(0, 255, 0, 0.05);
+  border-color: #00ff00;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-mono font-bold tracking-widest;
+  color: #00ff00;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+h1 {
+  @apply text-4xl;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+h2 {
+  @apply text-3xl;
+  color: #00ff00;
+}
+
+h3 {
+  @apply text-2xl;
+  color: #00ffff;
+}
+
+p {
+  @apply font-mono text-base leading-relaxed;
+  color: #e0e0e0;
+}
+
+strong {
+  color: #00ff00;
+}
+
+/* ===== LINKS ===== */
+a {
+  @apply text-neon-cyan transition-all duration-200;
+}
+
+a:hover {
+  color: #ff00ff;
+  text-shadow: 0 0 5px rgba(255, 0, 255, 0.5);
+}
+
+/* ===== TERMINAL PROMPT PREFIX ===== */
+.prompt::before {
+  content: '$ ';
+  color: #00ff00;
+  font-weight: bold;
+}
+
+/* ===== BLINKING CURSOR EFFECT ===== */
+.cursor-blink {
+  animation: blink 1s step-start infinite;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: #00ff00;
+  margin-left: 2px;
+  animation: blink 1s step-start infinite;
+}
+
+/* ===== NEON GLOW EFFECTS ===== */
+.glow-green {
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5), 0 0 20px rgba(0, 255, 0, 0.3);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+.glow-magenta {
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+/* ===== STATUS INDICATORS ===== */
+.status-online {
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+}
+
+.status-warning {
+  color: #ffff00;
+  text-shadow: 0 0 10px rgba(255, 255, 0, 0.6);
+}
+
+.status-error {
+  color: #ff0000;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  @apply py-20 px-4 border-b-2 border-terminal-border;
+  background-color: #0d0d0d;
+}
+
+.section:nth-child(even) {
+  background-color: #111111;
+  border: 2px solid #1a1a1a;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  .btn {
+    @apply px-4 py-2 text-xs;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.6);
+  }
+}
+
+@keyframes scanlines {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.terminal-box {
+  @apply bg-terminal-bg border-2 border-primary p-4 font-mono;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.neon-border {
+  border: 2px solid transparent;
+  background-image: linear-gradient(#0d0d0d, #0d0d0d),
+    linear-gradient(45deg, #00ff00, #00ffff, #ff00ff);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.neon-text {
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.typing-effect {
+  overflow: hidden;
+  border-right: 2px solid #00ff00;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #00ff00;
+  }
+}
+
+/* Responsive typography */
+@media (max-width: 768px) {
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+}
