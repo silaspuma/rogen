@@ -9,7 +9,6 @@
  */
 
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
-import { createClient as createServerClient } from '@supabase/auth-helpers-nextjs';
 
 /**
  * Create a Supabase client for browser/client-side operations
