@@ -18,9 +18,9 @@ export const createClient = () =>
   createPagesBrowserClient();
 
 /**
- * Database type definitions for generated games
+ * Database type definitions for generated games (raw Supabase format)
  */
-export interface GeneratedGame {
+export interface DatabaseGame {
   id: string;
   user_id: string;
   prompt: string;
@@ -53,7 +53,7 @@ export async function getCurrentUser() {
  */
 export async function saveGeneratedGame(
   userId: string,
-  gameData: Omit<GeneratedGame, 'id' | 'created_at' | 'user_id'>
+  gameData: Omit<DatabaseGame, 'id' | 'created_at' | 'user_id'>
 ) {
   const supabase = createClient();
 
@@ -73,16 +73,31 @@ export async function saveGeneratedGame(
     throw new Error(`Failed to save game: ${error.message}`);
   }
 
-  return data as GeneratedGame;
+  return data as DatabaseGame;
 }
 
 /**
- * Get all games for the current user
+ * Get all games for the current user (transformed to store format)
  * 
  * @param userId - User ID from Supabase Auth
- * @returns Array of user's generated games
+ * @returns Array of user's generated games transformed to UI format
  */
-export async function getUserGames(userId: string) {
+export async function getUserGames(
+  userId: string
+): Promise<
+  Array<{
+    id: string;
+    name: string;
+    description: string;
+    type: string;
+    theme: string;
+    createdAt: Date;
+    luaScript: string;
+    downloadUrl: string;
+    views: number;
+    shared: boolean;
+  }>
+> {
   const supabase = createClient();
 
   const { data, error } = await supabase

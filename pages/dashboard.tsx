@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { useRouter } from 'next/router';
 import { getUserGames, deleteGame } from '@/lib/supabase';
+import { GeneratedGame } from '@/lib/store';
 import LoginModal from '@/components/LoginModal';
 import Link from 'next/link';
 
@@ -9,18 +10,6 @@ import Link from 'next/link';
  * pages/dashboard.tsx - HACKER/TERMINAL THEME
  * Terminal-style user dashboard for game management
  */
-
-interface GeneratedGame {
-  id: string;
-  user_id: string;
-  game_name: string;
-  game_type: string;
-  theme: string;
-  prompt: string;
-  download_url: string;
-  lua_script: string;
-  created_at: string;
-}
 
 const Dashboard: React.FC = () => {
   const { user, loading: authLoading } = useAuth();
@@ -73,11 +62,11 @@ const Dashboard: React.FC = () => {
   };
 
   const handleDownload = (game: GeneratedGame) => {
-    if (game.download_url) {
-      if (game.download_url.startsWith('http')) {
-        window.open(game.download_url, '_blank');
+    if (game.downloadUrl) {
+      if (game.downloadUrl.startsWith('http')) {
+        window.open(game.downloadUrl, '_blank');
       } else {
-        window.location.href = game.download_url;
+        window.location.href = game.downloadUrl;
       }
     }
   };
@@ -190,7 +179,7 @@ const Dashboard: React.FC = () => {
 
               {/* Data Rows */}
               {games.map((game) => {
-                const createdDate = new Date(game.created_at);
+                const createdDate = game.createdAt instanceof Date ? game.createdAt : new Date(game.createdAt);
                 const formattedDate = createdDate.toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'short',
@@ -203,10 +192,10 @@ const Dashboard: React.FC = () => {
                     className="grid grid-cols-1 md:grid-cols-5 gap-4 p-4 bg-terminal-dark border-b border-terminal-border hover:bg-terminal-border transition-all items-center text-neon-green text-xs font-mono"
                   >
                     <div className="font-bold truncate text-neon-cyan">
-                      {game.game_name}
+                      {game.name}
                     </div>
                     <div className="hidden md:block uppercase">
-                      [{game.game_type}]
+                      [{game.type}]
                     </div>
                     <div className="hidden md:block uppercase">
                       [{game.theme}]
@@ -239,7 +228,7 @@ const Dashboard: React.FC = () => {
             <div className="border-2 border-primary bg-terminal-dark p-4 text-neon-green text-xs font-mono space-y-2">
               <div>$ total_games: {games.length}</div>
               <div>$ storage_used: {games.length * 2.5}MB / 1000MB</div>
-              <div>$ last_generated: {games[0] ? new Date(games[0].created_at).toLocaleString() : 'N/A'}</div>
+              <div>$ last_generated: {games[0] ? (games[0].createdAt instanceof Date ? games[0].createdAt : new Date(games[0].createdAt)).toLocaleString() : 'N/A'}</div>
             </div>
           </div>
         )}
